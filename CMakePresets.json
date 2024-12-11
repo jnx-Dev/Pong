@@ -1,0 +1,83 @@
+{
+		"version": 6,
+		"cmakeMinimumRequired": {
+				"major": 3,
+				"minor": 26,
+				"patch": 0
+		},
+		"configurePresets": [
+				{
+						"name": "vcpkg",
+						"toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+						"hidden": true
+				},
+				{
+						"name": "gcc",
+						"cacheVariables": {
+								"CMAKE_C_COMPILER": "gcc",
+								"CMAKE_CXX_COMPILER": "g++"
+						},
+						"hidden": true
+				},
+				{
+						"name": "msvc",
+						"cacheVariables": {
+								"CMAKE_CXX_COMPILER": "cl.exe"
+						},
+						"hidden": true
+				},
+				{
+						"name": "x64",
+						"architecture": {
+								"value": "x64",
+								"strategy": "external"
+						},
+						"hidden": true
+				},
+				{
+						"name": "debug",
+						"cacheVariables": {
+								"CMAKE_BUILD_TYPE": "Debug"
+						},
+						"hidden": true
+				},
+				{
+						"name": "release",
+						"cacheVariables": {
+								"CMAKE_BUILD_TYPE": "Release",
+								"CMAKE_INTERPROCEDURAL_OPTIMIZATION": true
+						},
+						"hidden": true
+				},
+				{
+						"name": "base",
+						"hidden": true,
+						"generator": "Ninja",
+						"binaryDir": "${sourceDir}/out/build/${presetName}",
+						"installDir": "${sourceDir}/out/install/${presetName}",
+						"cacheVariables": {
+								"CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+						}
+				},
+				{
+						"name": "windows",
+						"description": "Target Windows",
+						"hidden": true,
+						"condition": {
+								"type": "equals",
+								"lhs": "${hostSystemName}",
+								"rhs": "Windows"
+						}
+				},
+				{
+						"name": "linux",
+						"description": "Target Linux",
+						"hidden": true,
+						"condition": {
+								"type": "equals",
+								"lhs": "${hostSystemName}",
+								"rhs": "Linux"
+						}
+				}
+		]
+}
