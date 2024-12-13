@@ -78,6 +78,56 @@
 								"lhs": "${hostSystemName}",
 								"rhs": "Linux"
 						}
+				},
+				{
+						"name": "windows-x64-debug",
+						"displayName": "Windows x64 Debug",
+						"description": "",
+						"inherits": [ "base", "windows", "x64", "msvc", "debug", "vcpkg" ]
+				},
+				{
+						"name": "windows-x64-release",
+						"description": "",
+						"displayName": "Windows x64 Release",
+						"inherits": [ "base", "windows", "x64", "msvc", "release", "vcpkg" ]
+				},
+				{
+						"name": "linux-x64-debug",
+						"displayName": "Linux x64 Debug",
+						"description": "",
+						"inherits": [ "base", "linux", "x64", "gcc", "debug", "vcpkg" ]
+				},
+				{
+						"name": "linux-x64-release",
+						"description": "",
+						"displayName": "Linux x64 Release",
+						"inherits": [ "base", "linux", "x64", "gcc", "release", "vcpkg" ]
+				}
+		],
+		"buildPresets": [
+				{
+						"name": "Windows Debug",
+						"displayName": "Debug",
+						"description": "Debug configuration.",
+						"configurePreset": "windows-x64-debug"
+				},
+				{
+						"name": "Windows Release",
+						"displayName": "Release",
+						"description": "Release configuration.",
+						"configurePreset": "windows-x64-release"
+				},
+				{
+						"name": "Linux Debug",
+						"displayName": "Debug",
+						"description": "Debug configuration.",
+						"configurePreset": "linux-x64-debug"
+				},
+				{
+						"name": "Linux Release",
+						"displayName": "Release",
+						"description": "Release configuration.",
+						"configurePreset": "linux-x64-release"
 				}
 		]
 }

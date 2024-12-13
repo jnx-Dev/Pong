@@ -12,6 +12,6 @@ endif()
 
 find_package(SDL3 CONFIG REQUIRED)
 
-add_executable(Pong src/main.cpp src/Application.cpp)
+add_executable(Pong src/main.cpp src/Application.cpp src/Paddle.cpp src/Ball.cpp)
 
 target_link_libraries(Pong PRIVATE SDL3::SDL3)

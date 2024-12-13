@@ -5,9 +5,5 @@
 int main() 
 {
 	Application app;
-
-	app.update();
-	app.draw();
-
-	return 0;
+	app.loopStart();
 }

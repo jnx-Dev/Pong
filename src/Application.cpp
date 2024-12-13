@@ -5,50 +5,66 @@ const int SCREEN_HEIGHT = 480;
 
 Application::Application()
 {
-	m_window = SDL_CreateWindow("Pong", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+	SDL_CreateWindowAndRenderer("Pong", SCREEN_WIDTH, SCREEN_HEIGHT, 0, &m_window, &m_renderer);
 	if (!m_window) {
 		SDL_Log("SDL Window creation failed: %s", SDL_GetError());
 		SDL_Quit();
 		return;
 	}
 
-	m_windowSurface = SDL_GetWindowSurface(m_window);
-	if (!m_windowSurface) {
-		SDL_Log("SDL Window Surface creation failed: %s", SDL_GetError());
-		SDL_DestroyWindow(m_window);
+	if (!m_renderer) {
+		SDL_Log("SDL Renderer creation failed: %s", SDL_GetError());
 		SDL_Quit();
 		return;
 	}
+
+	SDL_SetRenderLogicalPresentation(m_renderer, 800, 800, SDL_LOGICAL_PRESENTATION_DISABLED);
 }
 
 Application::~Application()
 {
+	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
 	SDL_Quit();
 }
 
-void Application::update()
+void Application::loopStart()
 {
 	bool windowAlive = true;
 	while (windowAlive) {
-		SDL_Event event;
-		while (SDL_PollEvent(&event)) {
-			switch (event.type)
+		while (SDL_PollEvent(&m_event) == 1) {
+			switch (m_event.type)
 			{
-				case SDL_EVENT_QUIT:
-					windowAlive = false;
-					break;
-				default:
-					break;
+			case SDL_EVENT_QUIT:
+				windowAlive = false;
+				break;
+			default:
+				break;
 			}
-		}
 
+			m_paddleLeft.handleInput(m_event);
+			m_paddleRight.handleInput(m_event);
+		}
+		
+		update(1.0/60.0);
 		draw();
 	}
 }
 
+void Application::update(double deltaTime)
+{
+	m_paddleLeft.update(deltaTime);
+	m_paddleRight.update(deltaTime);
+	m_ball.update(deltaTime);
+}
+
 void Application::draw()
 {
-	SDL_UpdateWindowSurface(m_window);
-	SDL_Delay(16);
+	SDL_RenderClear(m_renderer);
+
+	m_paddleLeft.draw(m_renderer);
+	m_paddleRight.draw(m_renderer);
+	m_ball.draw(m_renderer);
+
+	SDL_RenderPresent(m_renderer);
 }
