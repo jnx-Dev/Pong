@@ -1,11 +1,13 @@
 #include "Application.hpp"
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 800;
+const int PADDLE_DIS = 100;
 
-Application::Application()
+Application::Application() : m_paddleLeft(PADDLE_DIS, SCREEN_HEIGHT/2), m_paddleRight(SCREEN_WIDTH - PADDLE_DIS, SCREEN_HEIGHT / 2), m_ball(SCREEN_HEIGHT/2, SCREEN_WIDTH/2)
 {
 	SDL_CreateWindowAndRenderer("Pong", SCREEN_WIDTH, SCREEN_HEIGHT, 0, &m_window, &m_renderer);
+
 	if (!m_window) {
 		SDL_Log("SDL Window creation failed: %s", SDL_GetError());
 		SDL_Quit();
@@ -18,7 +20,7 @@ Application::Application()
 		return;
 	}
 
-	SDL_SetRenderLogicalPresentation(m_renderer, 800, 800, SDL_LOGICAL_PRESENTATION_DISABLED);
+	SDL_SetRenderLogicalPresentation(m_renderer, 400, 400, SDL_LOGICAL_PRESENTATION_DISABLED);
 }
 
 Application::~Application()

@@ -4,13 +4,15 @@
 
 class Ball {
 public:
-    Ball();
+    struct posExact { float x, y; };
+    struct velocity { float x, y; };
+    Ball(float x, float y);
     ~Ball();
 
     void update(double deltaTime);
     void draw(SDL_Renderer* renderer);
 private:
-    SDL_Rect m_pos;
-    struct m_posExact;
-    struct m_velo;
+    SDL_FRect m_pos;
+    posExact m_posExact = { 0, 0 };
+    velocity m_velo = { 0, 0 };
 };
