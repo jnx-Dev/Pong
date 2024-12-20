@@ -122,6 +122,7 @@ void Application::checkIntersection()
 	}
 	else if (SDL_HasRectIntersectionFloat(&m_borderRight, m_ball.getPos()))
 	{
+		reset();
 		m_score.left++;
 		checkScore();
 	}
@@ -129,16 +130,17 @@ void Application::checkIntersection()
 
 void Application::checkScore()
 {
-	if (m_score.left < 10 && m_score.right < 10)
-	{
-		reset();
-	}
-	else if (m_score.left >= 10)
-	{
-		
-	}
-	else if (m_score.right >= 10)
-	{
+	std::cout << m_score.left << m_score.right << std::endl;
 
+	if (m_score.left >= 10 || m_score.right >= 10)
+	{
+		if (m_score.left >= 10)
+		{
+			std::cout << "Left wins with: " << m_score.left << "Points\n";
+		}
+		else if (m_score.right >= 10)
+		{
+			std::cout << "Right wins with: " << m_score.right << "Points\n";
+		}
 	}
 }
