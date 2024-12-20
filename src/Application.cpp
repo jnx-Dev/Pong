@@ -8,7 +8,7 @@ const int BORDER_MARGIN = 5;
 const float DELTATIME = 0.02f; // 1.0f/50.0f
 
 Application::Application() : m_paddleLeft(PADDLE_DIS, SCREEN_HEIGHT/2), m_paddleRight(SCREEN_WIDTH - PADDLE_DIS, SCREEN_HEIGHT/2),
-							 m_ball(SCREEN_HEIGHT/2, SCREEN_WIDTH/2)
+							 m_ball(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 {
 	SDL_CreateWindowAndRenderer("Pong", SCREEN_WIDTH, SCREEN_HEIGHT, 0, &m_window, &m_renderer);
 
@@ -94,11 +94,11 @@ void Application::drawRect(SDL_Renderer* renderer, SDL_FRect &rect)
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 }
 
-void Application::reset()
+void Application::reset(char scorer)
 {
 	m_paddleLeft.init();
 	m_paddleRight.init();
-	m_ball.init();
+	m_ball.init(scorer);
 }
 
 void Application::checkIntersection()
@@ -117,30 +117,12 @@ void Application::checkIntersection()
 
 	if (SDL_HasRectIntersectionFloat(&m_borderLeft, m_ball.getPos()))
 	{
+		reset('r');
 		m_score.right++;
-		checkScore();
 	}
 	else if (SDL_HasRectIntersectionFloat(&m_borderRight, m_ball.getPos()))
 	{
-		reset();
+		reset('l');
 		m_score.left++;
-		checkScore();
-	}
-}
-
-void Application::checkScore()
-{
-	std::cout << m_score.left << m_score.right << std::endl;
-
-	if (m_score.left >= 10 || m_score.right >= 10)
-	{
-		if (m_score.left >= 10)
-		{
-			std::cout << "Left wins with: " << m_score.left << "Points\n";
-		}
-		else if (m_score.right >= 10)
-		{
-			std::cout << "Right wins with: " << m_score.right << "Points\n";
-		}
 	}
 }

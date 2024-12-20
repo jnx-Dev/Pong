@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 
 #include <SDL3/SDL.h>
 #include "Ball.hpp"
@@ -16,9 +15,8 @@ public:
 	void update(float deltaTime);
 	void draw();
 	void drawRect(SDL_Renderer* renderer, SDL_FRect &rect);
-	void reset();
+	void reset(char scorer);
 	void checkIntersection();
-	void checkScore();
 private:
 	SDL_Window* m_window = nullptr;
 	SDL_Renderer* m_renderer = nullptr;

@@ -5,7 +5,7 @@ const float PADDLE_HEIGHT = 150.0f;
 
 Paddle::Paddle(float xPos, float yPos)
 {
-    m_pos = { xPos, yPos, PADDLE_WIDTH, PADDLE_HEIGHT };
+    m_pos = { xPos - PADDLE_WIDTH/2, yPos - PADDLE_HEIGHT/2, PADDLE_WIDTH, PADDLE_HEIGHT };
     m_directionState = 0;
     m_initPosY = yPos;
 }
